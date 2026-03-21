@@ -1,0 +1,104 @@
+.pending-banner {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 16px 20px;
+  background: rgba(245,158,11,0.07);
+  border: 1px solid rgba(245,158,11,0.2);
+  border-radius: 14px;
+  margin-bottom: 20px;
+}
+.pending-banner__icon { font-size: 24px; }
+
+.admin-filters {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 20px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+.role-filter-tabs {
+  display: flex;
+  background: #0a0a0a;
+  border: 1px solid rgba(255,255,255,0.07);
+  border-radius: 10px;
+  padding: 4px;
+  gap: 4px;
+}
+.role-filter-btn {
+  padding: 7px 16px;
+  border-radius: 7px;
+  font-size: 13px;
+  font-weight: 500;
+  background: none;
+  border: none;
+  color: #525252;
+  cursor: pointer;
+  font-family: 'Inter', sans-serif;
+  transition: all 0.15s;
+}
+.role-filter-btn:hover { color: #a3a3a3; }
+.role-filter-btn.active { background: rgba(255,255,255,0.08); color: #fff; }
+
+.admin-table-wrap {
+  background: #0a0a0a;
+  border: 1px solid rgba(255,255,255,0.07);
+  border-radius: 16px;
+  overflow: hidden;
+}
+
+.user-avatar {
+  width: 36px; height: 36px;
+  border-radius: 10px;
+  background: #1a1a1a;
+  border: 1px solid rgba(255,255,255,0.07);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 14px;
+  color: #a3a3a3;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+.user-avatar img { width: 100%; height: 100%; object-fit: cover; }
+
+.admin-action-btn {
+  padding: 5px 12px;
+  border-radius: 7px;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  border: 1px solid;
+  font-family: 'Inter', sans-serif;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  transition: all 0.15s;
+  white-space: nowrap;
+}
+.admin-action-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+.admin-action-btn.approve {
+  background: rgba(34,197,94,0.1);
+  color: #22c55e;
+  border-color: rgba(34,197,94,0.3);
+}
+.admin-action-btn.approve:hover:not(:disabled) { background: rgba(34,197,94,0.2); }
+.admin-action-btn.block {
+  background: rgba(245,158,11,0.08);
+  color: #f59e0b;
+  border-color: rgba(245,158,11,0.25);
+}
+.admin-action-btn.block:hover:not(:disabled) { background: rgba(245,158,11,0.15); }
+.admin-action-btn.unblock {
+  background: rgba(59,130,246,0.08);
+  color: #3b82f6;
+  border-color: rgba(59,130,246,0.25);
+}
+.admin-action-btn.unblock:hover:not(:disabled) { background: rgba(59,130,246,0.15); }
+.admin-action-btn.delete {
+  background: rgba(239,68,68,0.08);
+  color: #ef4444;
+  border-color: rgba(239,68,68,0.25);
+}
+.admin-action-btn.delete:hover:not(:disabled) { background: rgba(239,68,68,0.15); }

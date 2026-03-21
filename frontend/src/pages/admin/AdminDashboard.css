@@ -1,0 +1,124 @@
+.admin-alert {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 16px;
+  padding: 12px 16px;
+  background: rgba(245,158,11,0.08);
+  border: 1px solid rgba(245,158,11,0.2);
+  border-radius: 12px;
+  font-size: 14px;
+  color: #f59e0b;
+}
+
+.admin-charts-row {
+  display: flex;
+  gap: 20px;
+  align-items: stretch;
+}
+
+.admin-chart-card {
+  background: #0a0a0a;
+  border: 1px solid rgba(255,255,255,0.07);
+  border-radius: 16px;
+  padding: 24px;
+}
+
+/* Skills demand list */
+.skills-demand-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.skill-demand-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.skill-demand-label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 160px;
+}
+.skill-demand-rank {
+  font-size: 11px;
+  font-weight: 700;
+  color: #404040;
+  width: 24px;
+}
+.skill-demand-name {
+  font-size: 13px;
+  font-weight: 500;
+  color: #d4d4d4;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.skill-demand-bar-wrap {
+  flex: 1;
+  height: 6px;
+  background: #1a1a1a;
+  border-radius: 100px;
+  overflow: hidden;
+}
+.skill-demand-bar {
+  height: 100%;
+  background: #fff;
+  border-radius: 100px;
+  transition: width 1s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.skill-demand-count {
+  font-size: 13px;
+  font-weight: 700;
+  color: #737373;
+  min-width: 28px;
+  text-align: right;
+}
+
+/* Health metrics */
+.health-metrics {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+.health-metric__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 6px;
+}
+.health-metric__label { font-size: 13px; color: #737373; }
+.health-metric__value { font-size: 14px; font-weight: 700; }
+.health-metric__bar {
+  height: 5px;
+  background: #1a1a1a;
+  border-radius: 100px;
+  overflow: hidden;
+  margin-bottom: 4px;
+}
+.health-metric__fill {
+  height: 100%;
+  border-radius: 100px;
+  transition: width 1s ease;
+}
+.health-metric__pct { font-size: 11px; color: #404040; }
+
+/* Quick admin links */
+.quick-admin-links { display: flex; flex-direction: column; gap: 4px; }
+.quick-admin-link {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 10px;
+  border-radius: 10px;
+  font-size: 13px;
+  color: #737373;
+  text-decoration: none;
+  transition: all 0.15s;
+}
+.quick-admin-link:hover { background: rgba(255,255,255,0.04); color: #fff; }
+
+@media (max-width: 1024px) {
+  .admin-charts-row { flex-direction: column; }
+}

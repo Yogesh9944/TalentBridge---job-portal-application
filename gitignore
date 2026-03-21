@@ -1,0 +1,28 @@
+# Dependencies
+node_modules/
+
+# Environment files
+.env
+.env.*
+
+# Build folders
+dist/
+build/
+
+# Logs
+*.log
+
+# OS files
+.DS_Store
+
+# Uploads (if any local storage)
+uploads/
+
+# Vite files
+frontend/dist/
+
+# Backend specific
+backend/node_modules/
+
+# Frontend specific
+frontend/node_modules/

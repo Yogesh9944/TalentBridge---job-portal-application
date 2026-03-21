@@ -1,0 +1,189 @@
+.status-tabs {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+  margin-bottom: 24px;
+  background: #0a0a0a;
+  padding: 6px;
+  border-radius: 14px;
+  border: 1px solid rgba(255,255,255,0.06);
+}
+.status-tab {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 14px;
+  border-radius: 9px;
+  font-size: 13px;
+  font-weight: 500;
+  background: none;
+  border: none;
+  color: #525252;
+  cursor: pointer;
+  font-family: 'Inter', sans-serif;
+  transition: all 0.15s;
+}
+.status-tab:hover { color: #a3a3a3; }
+.status-tab.active { background: rgba(255,255,255,0.08); color: #fff; }
+.status-count {
+  background: rgba(255,255,255,0.08);
+  border-radius: 100px;
+  padding: 1px 7px;
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.applications-list { display: flex; flex-direction: column; gap: 12px; }
+.app-card {
+  background: #0a0a0a;
+  border: 1px solid rgba(255,255,255,0.07);
+  border-radius: 16px;
+  overflow: hidden;
+  transition: border-color 0.2s;
+}
+.app-card:hover { border-color: rgba(255,255,255,0.15); }
+.app-card__main {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 18px 20px;
+  cursor: pointer;
+}
+.app-card__logo {
+  width: 44px; height: 44px;
+  border-radius: 12px;
+  background: #1a1a1a;
+  border: 1px solid rgba(255,255,255,0.07);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  font-weight: 700;
+  color: #a3a3a3;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+.app-card__logo img { width: 100%; height: 100%; object-fit: cover; }
+.app-card__info { flex: 1; min-width: 0; }
+.app-card__title { font-size: 15px; font-weight: 700; margin-bottom: 3px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.app-card__company { font-size: 12px; color: #525252; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.app-card__date { font-size: 11px; color: #404040; margin-top: 2px; }
+.app-card__right { display: flex; align-items: center; gap: 12px; flex-shrink: 0; }
+.status-badge {
+  padding: 5px 12px;
+  border-radius: 100px;
+  font-size: 12px;
+  font-weight: 600;
+  border: 1px solid;
+  white-space: nowrap;
+}
+
+.app-card__detail {
+  padding: 20px;
+  border-top: 1px solid rgba(255,255,255,0.05);
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* Progress steps */
+.progress-steps {
+  display: flex;
+  align-items: flex-start;
+  gap: 0;
+  position: relative;
+}
+.progress-step {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex: 1;
+  position: relative;
+}
+.step-dot {
+  width: 28px; height: 28px;
+  border-radius: 50%;
+  background: #1a1a1a;
+  border: 2px solid #2a2a2a;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 11px;
+  font-weight: 700;
+  color: #404040;
+  z-index: 1;
+  transition: all 0.3s;
+}
+.step-dot.done { background: #fff; border-color: #fff; color: #000; }
+.step-label {
+  font-size: 11px;
+  color: #404040;
+  margin-top: 6px;
+  text-align: center;
+  transition: color 0.3s;
+}
+.step-label.active { color: #a3a3a3; }
+.step-line {
+  position: absolute;
+  top: 14px;
+  left: 50%;
+  width: 100%;
+  height: 2px;
+  background: #1a1a1a;
+  transition: background 0.3s;
+}
+.step-line.done { background: #fff; }
+
+/* Analysis block */
+.analysis-block {
+  background: #111;
+  border: 1px solid rgba(255,255,255,0.06);
+  border-radius: 12px;
+  padding: 16px;
+}
+.analysis-block__title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  font-weight: 600;
+  color: #737373;
+  margin-bottom: 14px;
+}
+.analysis-row {
+  display: flex;
+  gap: 20px;
+  align-items: flex-start;
+}
+.analysis-details { flex: 1; display: flex; flex-direction: column; gap: 12px; }
+.analysis-label { font-size: 12px; font-weight: 600; margin-bottom: 6px; }
+.skill-chips { display: flex; flex-wrap: wrap; gap: 5px; }
+.skill-chip {
+  padding: 3px 10px;
+  border-radius: 100px;
+  font-size: 11px;
+  font-weight: 500;
+  border: 1px solid;
+}
+.skill-chip--match { background: rgba(34,197,94,0.1); color: #22c55e; border-color: rgba(34,197,94,0.25); }
+.skill-chip--miss { background: rgba(239,68,68,0.1); color: #ef4444; border-color: rgba(239,68,68,0.25); }
+
+.recruiter-note {
+  background: rgba(245,158,11,0.06);
+  border: 1px solid rgba(245,158,11,0.15);
+  border-radius: 10px;
+  padding: 14px;
+  font-size: 13px;
+  color: #a3a3a3;
+  line-height: 1.6;
+}
+.interview-card {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px;
+  background: rgba(59,130,246,0.06);
+  border: 1px solid rgba(59,130,246,0.15);
+  border-radius: 10px;
+}
+.interview-card__icon { font-size: 24px; }
