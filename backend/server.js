@@ -8,13 +8,31 @@ const app = express();
 // Connect Database
 connectDB();
 
-// Middleware
+// ✅ CORS Configuration (Production Safe)
+const allowedOrigins = [
+  'http://localhost:5173',
+  process.env.CLIENT_URL
+];
+
 app.use(cors({
-  origin: process.env.CLIENT_URL || 'http://localhost:5173',
+  origin: function (origin, callback) {
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
   credentials: true,
 }));
+
+// Middleware
 app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ extended: true, limit: '10mb' }));
+
+// ✅ Root Route (fix "Cannot GET /")
+app.get('/', (req, res) => {
+  res.send('Job Portal API is running...');
+});
 
 // Routes
 app.use('/api/auth', require('./routes/auth'));
@@ -24,12 +42,12 @@ app.use('/api/companies', require('./routes/companies'));
 app.use('/api/admin', require('./routes/admin'));
 app.use('/api/resume', require('./routes/resume'));
 
-// Health check
+// ✅ Health check
 app.get('/api/health', (req, res) => {
   res.json({ status: 'OK', message: 'Job Portal API is running 🚀' });
 });
 
-// Global error handler
+// ✅ Global error handler
 app.use((err, req, res, next) => {
   console.error('Global error:', err.message);
   res.status(err.status || 500).json({
@@ -38,8 +56,10 @@ app.use((err, req, res, next) => {
   });
 });
 
+// ✅ PORT (Render compatible)
 const PORT = process.env.PORT || 5000;
+
 app.listen(PORT, () => {
-  console.log(`\n🚀 Server running on http://localhost:${PORT}`);
-  console.log(`📊 Environment: ${process.env.NODE_ENV || 'development'}\n`);
+  console.log(`🚀 Server running on port ${PORT}`);
+  console.log(`📊 Environment: ${process.env.NODE_ENV || 'development'}`);
 });
