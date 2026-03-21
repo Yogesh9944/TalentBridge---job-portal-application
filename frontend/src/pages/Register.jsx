@@ -4,177 +4,168 @@ import { useAuth } from '../context/AuthContext';
 import toast from 'react-hot-toast';
 import './Auth.css';
 
-export default function Register() {
+const Register = () => {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
   const { register } = useAuth();
 
-  const defaultRole = searchParams.get('role') || 'seeker';
+  const roleFromUrl = searchParams.get('role') || 'seeker';
 
-  const [form, setForm] = useState({
+  const [formData, setFormData] = useState({
     name: '',
     email: '',
     password: '',
-    role: defaultRole
+    role: roleFromUrl,
   });
 
-  const [loading, setLoading] = useState(false);
-  const [showPass, setShowPass] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
 
+  // ✅ Handle Input Change
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+  };
 
-  const handleSubmit = async () => {
-    if (form.password.length < 6) {
+  // ✅ Handle Submit (NO FORM SUBMIT)
+  const handleRegister = async () => {
+    console.log("🔥 BUTTON CLICKED");
+
+    if (!formData.name || !formData.email || !formData.password) {
+      toast.error('All fields are required');
+      return;
+    }
+
+    if (formData.password.length < 6) {
       toast.error('Password must be at least 6 characters');
       return;
     }
 
-    setLoading(true);
-
     try {
-      const data = await register(
-        form.name,
-        form.email,
-        form.password,
-        form.role
+      setIsLoading(true);
+
+      const response = await register(
+        formData.name,
+        formData.email,
+        formData.password,
+        formData.role
       );
 
-      if (data.user.role === 'recruiter') {
-        toast.success('Account created! Awaiting admin approval.');
+      console.log("✅ API RESPONSE:", response);
+
+      if (response.user.role === 'recruiter') {
+        toast.success('Account created! Awaiting approval.');
         navigate('/recruiter');
       } else {
-        toast.success(`Welcome to TalentBridge, ${data.user.name}!`);
+        toast.success(`Welcome ${response.user.name}!`);
         navigate('/seeker');
       }
 
-    } catch (err) {
-      toast.error(err.response?.data?.message || 'Registration failed');
+    } catch (error) {
+      console.error("❌ ERROR:", error);
+      toast.error(error.response?.data?.message || 'Registration failed');
     } finally {
-      setLoading(false);
+      setIsLoading(false);
     }
   };
 
   return (
     <div className="auth-page">
 
-
+      {/* ✅ FIX: Prevent click blocking */}
       <div className="auth-grid" style={{ pointerEvents: 'none' }} />
       <div className="auth-noise" style={{ pointerEvents: 'none' }} />
 
       <div className="auth-container">
         <Link to="/" className="auth-back">
-          Back to home
+          ← Back to Home
         </Link>
 
-        <div className="auth-card animate-scaleIn">
-          <div className="auth-logo">
-            <span className="logo-mark">TB</span>
-            <span className="logo-text">TalentBridge</span>
-          </div>
-
-          <h1 className="auth-title">Create account</h1>
-          <p className="auth-subtitle">
-            Join thousands of professionals on TalentBridge
-          </p>
+        <div className="auth-card">
+          <h1 className="auth-title">Create Account</h1>
 
           {/* Role Selector */}
           <div className="role-selector">
             <button
               type="button"
-              className={`role-selector__btn ${form.role === 'seeker' ? 'active' : ''}`}
-              onClick={() => setForm({ ...form, role: 'seeker' })}
+              className={formData.role === 'seeker' ? 'active' : ''}
+              onClick={() => setFormData({ ...formData, role: 'seeker' })}
             >
               Job Seeker
             </button>
 
             <button
               type="button"
-              className={`role-selector__btn ${form.role === 'recruiter' ? 'active' : ''}`}
-              onClick={() => setForm({ ...form, role: 'recruiter' })}
+              className={formData.role === 'recruiter' ? 'active' : ''}
+              onClick={() => setFormData({ ...formData, role: 'recruiter' })}
             >
               Recruiter
             </button>
           </div>
 
-          {form.role === 'recruiter' && (
-            <div className="auth-notice">
-              Recruiter accounts require admin approval before posting jobs.
-            </div>
-          )}
-
-
+          {/* FORM (DIV BASED) */}
           <div className="auth-form">
 
-            <div className="form-group">
-              <label className="form-label">Full Name</label>
+            <input
+              type="text"
+              name="name"
+              placeholder="Full Name"
+              value={formData.name}
+              onChange={handleChange}
+              className="input-base"
+            />
+
+            <input
+              type="email"
+              name="email"
+              placeholder="Email"
+              value={formData.email}
+              onChange={handleChange}
+              className="input-base"
+            />
+
+            <div className="input-wrap">
               <input
-                type="text"
+                type={showPassword ? 'text' : 'password'}
+                name="password"
+                placeholder="Password"
+                value={formData.password}
+                onChange={handleChange}
                 className="input-base"
-                placeholder="John Doe"
-                value={form.name}
-                onChange={(e) =>
-                  setForm({ ...form, name: e.target.value })
-                }
-                required
               />
+
+              <button
+                type="button"
+                onClick={() => setShowPassword(!showPassword)}
+              >
+                {showPassword ? 'Hide' : 'Show'}
+              </button>
             </div>
 
-            <div className="form-group">
-              <label className="form-label">Email address</label>
-              <input
-                type="email"
-                className="input-base"
-                placeholder="you@example.com"
-                value={form.email}
-                onChange={(e) =>
-                  setForm({ ...form, email: e.target.value })
-                }
-                required
-              />
-            </div>
-
-            <div className="form-group">
-              <label className="form-label">Password</label>
-              <div className="input-wrap">
-                <input
-                  type={showPass ? 'text' : 'password'}
-                  className="input-base"
-                  placeholder="Min. 6 characters"
-                  value={form.password}
-                  onChange={(e) =>
-                    setForm({ ...form, password: e.target.value })
-                  }
-                  required
-                />
-
-                <button
-                  type="button"
-                  onClick={() => setShowPass(!showPass)}
-                >
-                  {showPass ? 'Hide' : 'Show'}
-                </button>
-              </div>
-            </div>
-
-          
             <button
               type="button"
-              onClick={handleSubmit}
-              className="btn btn-primary w-full"
-              disabled={loading}
+              onClick={handleRegister}
+              disabled={isLoading}
+              className="btn btn-primary"
             >
-              {loading ? 'Creating account...' : 'Create Account'}
+              {isLoading ? 'Creating...' : 'Create Account'}
             </button>
 
           </div>
 
-          <p className="auth-switch">
+          <p>
             Already have an account?{' '}
-            <Link to={`/login?role=${form.role}`}>
-              Sign in
+            <Link to={`/login?role=${formData.role}`}>
+              Login
             </Link>
           </p>
         </div>
       </div>
     </div>
   );
-}
+};
+
+export default Register;
