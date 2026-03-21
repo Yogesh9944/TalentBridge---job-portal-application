@@ -8,6 +8,7 @@ export default function Register() {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
   const { register } = useAuth();
+
   const defaultRole = searchParams.get('role') || 'seeker';
 
   const [form, setForm] = useState({
@@ -20,9 +21,8 @@ export default function Register() {
   const [loading, setLoading] = useState(false);
   const [showPass, setShowPass] = useState(false);
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
 
+  const handleSubmit = async () => {
     if (form.password.length < 6) {
       toast.error('Password must be at least 6 characters');
       return;
@@ -55,16 +55,13 @@ export default function Register() {
 
   return (
     <div className="auth-page">
-      
-      {/* 🔥 FIX: Prevent overlay blocking clicks */}
+
+
       <div className="auth-grid" style={{ pointerEvents: 'none' }} />
       <div className="auth-noise" style={{ pointerEvents: 'none' }} />
 
       <div className="auth-container">
         <Link to="/" className="auth-back">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-            <path d="M19 12H5M12 19l-7-7 7-7"/>
-          </svg>
           Back to home
         </Link>
 
@@ -104,9 +101,9 @@ export default function Register() {
             </div>
           )}
 
-          {/* ✅ FORM */}
-          <form onSubmit={handleSubmit} className="auth-form">
-            
+
+          <div className="auth-form">
+
             <div className="form-group">
               <label className="form-label">Full Name</label>
               <input
@@ -151,7 +148,6 @@ export default function Register() {
 
                 <button
                   type="button"
-                  className="input-eye"
                   onClick={() => setShowPass(!showPass)}
                 >
                   {showPass ? 'Hide' : 'Show'}
@@ -159,14 +155,17 @@ export default function Register() {
               </div>
             </div>
 
+          
             <button
-              type="submit"
+              type="button"
+              onClick={handleSubmit}
               className="btn btn-primary w-full"
               disabled={loading}
             >
               {loading ? 'Creating account...' : 'Create Account'}
             </button>
-          </form>
+
+          </div>
 
           <p className="auth-switch">
             Already have an account?{' '}
