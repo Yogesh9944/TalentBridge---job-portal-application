@@ -105,7 +105,6 @@ const createJob = async (req, res) => {
   }
 };
 
-// @PUT /api/jobs/:id
 const updateJob = async (req, res) => {
   try {
     let job = await Job.findById(req.params.id);
@@ -129,7 +128,7 @@ const updateJob = async (req, res) => {
   }
 };
 
-// @DELETE /api/jobs/:id
+
 const deleteJob = async (req, res) => {
   try {
     const job = await Job.findById(req.params.id);
@@ -146,7 +145,7 @@ const deleteJob = async (req, res) => {
   }
 };
 
-// @GET /api/jobs/recruiter/my-jobs
+
 const getMyJobs = async (req, res) => {
   try {
     const jobs = await Job.find({ postedBy: req.user._id })
@@ -159,7 +158,7 @@ const getMyJobs = async (req, res) => {
   }
 };
 
-// @PUT /api/jobs/:id/save
+
 const saveJob = async (req, res) => {
   try {
     const user = await User.findById(req.user._id);
