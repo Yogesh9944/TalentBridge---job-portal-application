@@ -1,7 +1,7 @@
 const User = require('../models/User');
 const { generateToken } = require('../middleware/auth');
 
-// @POST /api/auth/register
+
 const register = async (req, res) => {
   try {
     const { name, email, password, role } = req.body;
@@ -45,7 +45,7 @@ const register = async (req, res) => {
   }
 };
 
-// @POST /api/auth/login
+
 const login = async (req, res) => {
   try {
     const { email, password } = req.body;
@@ -91,7 +91,6 @@ const login = async (req, res) => {
   }
 };
 
-// @GET /api/auth/me
 const getMe = async (req, res) => {
   try {
     const user = await User.findById(req.user._id)
@@ -105,7 +104,7 @@ const getMe = async (req, res) => {
   }
 };
 
-// @PUT /api/auth/profile
+
 const updateProfile = async (req, res) => {
   try {
     const {
@@ -135,7 +134,7 @@ const updateProfile = async (req, res) => {
   }
 };
 
-// @PUT /api/auth/change-password
+
 const changePassword = async (req, res) => {
   try {
     const { currentPassword, newPassword } = req.body;
@@ -155,7 +154,7 @@ const changePassword = async (req, res) => {
   }
 };
 
-// @GET /api/auth/notifications
+
 const getNotifications = async (req, res) => {
   try {
     const user = await User.findById(req.user._id).select('notifications');
@@ -166,7 +165,7 @@ const getNotifications = async (req, res) => {
   }
 };
 
-// @PUT /api/auth/notifications/read
+
 const markNotificationsRead = async (req, res) => {
   try {
     await User.findByIdAndUpdate(req.user._id, {
