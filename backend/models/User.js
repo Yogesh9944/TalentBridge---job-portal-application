@@ -8,7 +8,7 @@ const userSchema = new mongoose.Schema({
   role: { type: String, enum: ['seeker', 'recruiter', 'admin'], default: 'seeker' },
   
   // Job Seeker Profile
-  title: { type: String }, // e.g. "Full Stack Developer"
+  title: { type: String }, 
   bio: { type: String },
   phone: { type: String },
   location: { type: String },
