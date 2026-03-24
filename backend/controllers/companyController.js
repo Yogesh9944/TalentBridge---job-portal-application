@@ -2,7 +2,6 @@ const Company = require('../models/Company');
 const User = require('../models/User');
 const { cloudinary } = require('../config/cloudinary');
 
-// @POST /api/companies
 const createCompany = async (req, res) => {
   try {
     const existing = await Company.findOne({ recruiter: req.user._id });
@@ -17,7 +16,7 @@ const createCompany = async (req, res) => {
       recruiter: req.user._id,
     });
 
-    // Link company to user
+   
     await User.findByIdAndUpdate(req.user._id, { company: company._id });
 
     res.status(201).json({ success: true, company });
@@ -26,7 +25,7 @@ const createCompany = async (req, res) => {
   }
 };
 
-// @GET /api/companies/my
+
 const getMyCompany = async (req, res) => {
   try {
     const company = await Company.findOne({ recruiter: req.user._id });
@@ -39,7 +38,7 @@ const getMyCompany = async (req, res) => {
   }
 };
 
-// @PUT /api/companies/:id
+
 const updateCompany = async (req, res) => {
   try {
     let company = await Company.findById(req.params.id);
@@ -56,7 +55,6 @@ const updateCompany = async (req, res) => {
   }
 };
 
-// @PUT /api/companies/:id/logo
 const uploadCompanyLogo = async (req, res) => {
   try {
     if (!req.file) return res.status(400).json({ success: false, message: 'No image uploaded' });
@@ -81,7 +79,6 @@ const uploadCompanyLogo = async (req, res) => {
   }
 };
 
-// @GET /api/companies
 const getAllCompanies = async (req, res) => {
   try {
     const companies = await Company.find()
