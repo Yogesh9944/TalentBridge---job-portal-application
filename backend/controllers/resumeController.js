@@ -3,7 +3,7 @@ const { cloudinary } = require('../config/cloudinary');
 const { extractSkills } = require('../utils/resumeParser');
 const streamifier = require('streamifier');
 
-// @POST /api/resume/upload
+
 const uploadResume = async (req, res) => {
   try {
     if (!req.file) {
