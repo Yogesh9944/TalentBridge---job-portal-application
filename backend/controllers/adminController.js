@@ -3,7 +3,6 @@ const Job = require('../models/Job');
 const Application = require('../models/Application');
 const Company = require('../models/Company');
 
-// @GET /api/admin/stats
 const getAdminStats = async (req, res) => {
   try {
     const [
@@ -20,7 +19,7 @@ const getAdminStats = async (req, res) => {
       User.countDocuments({ role: 'recruiter', isApproved: false }),
     ]);
 
-    // Monthly registrations (last 6 months)
+
     const sixMonthsAgo = new Date();
     sixMonthsAgo.setMonth(sixMonthsAgo.getMonth() - 6);
 
@@ -49,7 +48,7 @@ const getAdminStats = async (req, res) => {
       { $limit: 10 },
     ]);
 
-    // Application status distribution
+
     const appStats = await Application.aggregate([
       { $group: { _id: '$status', count: { $sum: 1 } } },
     ]);
@@ -67,7 +66,7 @@ const getAdminStats = async (req, res) => {
   }
 };
 
-// @GET /api/admin/users
+
 const getAllUsers = async (req, res) => {
   try {
     const { role, search, page = 1, limit = 20 } = req.query;
@@ -94,7 +93,7 @@ const getAllUsers = async (req, res) => {
   }
 };
 
-// @PUT /api/admin/users/:id/toggle-block
+
 const toggleBlockUser = async (req, res) => {
   try {
     const user = await User.findById(req.params.id);
@@ -113,7 +112,7 @@ const toggleBlockUser = async (req, res) => {
   }
 };
 
-// @PUT /api/admin/users/:id/approve
+
 const approveRecruiter = async (req, res) => {
   try {
     const user = await User.findById(req.params.id);
@@ -124,7 +123,6 @@ const approveRecruiter = async (req, res) => {
     user.isApproved = true;
     await user.save();
 
-    // Notify recruiter
     await User.findByIdAndUpdate(user._id, {
       $push: {
         notifications: {
@@ -142,7 +140,7 @@ const approveRecruiter = async (req, res) => {
   }
 };
 
-// @DELETE /api/admin/users/:id
+
 const deleteUser = async (req, res) => {
   try {
     const user = await User.findByIdAndDelete(req.params.id);
@@ -153,7 +151,7 @@ const deleteUser = async (req, res) => {
   }
 };
 
-// @GET /api/admin/jobs
+
 const getAllJobsAdmin = async (req, res) => {
   try {
     const { page = 1, limit = 20, status } = req.query;
@@ -174,7 +172,7 @@ const getAllJobsAdmin = async (req, res) => {
   }
 };
 
-// @PUT /api/admin/jobs/:id/approve
+
 const toggleJobApproval = async (req, res) => {
   try {
     const job = await Job.findById(req.params.id);
